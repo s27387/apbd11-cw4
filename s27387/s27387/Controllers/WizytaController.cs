@@ -9,7 +9,7 @@ namespace s27387.Controllers;
 public class WizytaController : ControllerBase
 {
     [HttpPost]
-    public IActionResult AddVisit([FromBody] Wizyta wizyta)
+    public IActionResult DodajWizyte([FromBody] Wizyta wizyta)
     {
         var zwierze = BazaDanych.Zwierzeta.FirstOrDefault(a => a.Id == wizyta.ZwierzeId);
         if (zwierze == null)

@@ -6,17 +6,17 @@ using s27387.Models;
 public class ZwierzeController : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetAll() => Ok(BazaDanych.Zwierzeta);
+    public IActionResult ZwrocZwierzeta() => Ok(BazaDanych.Zwierzeta);
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public IActionResult ZwrocZwierzePoId(int id)
     {
         var zwierze = BazaDanych.Zwierzeta.FirstOrDefault(a => a.Id == id);
         return zwierze == null ? NotFound() : Ok(zwierze);
     }
 
     [HttpGet("search")]
-    public IActionResult SearchByName([FromQuery] string name)
+    public IActionResult ZnajdzZwierzetaOImieniu([FromQuery] string name)
     {
         var results = BazaDanych.Zwierzeta
             .Where(a => a.Imie.Contains(name, StringComparison.OrdinalIgnoreCase))
@@ -25,7 +25,7 @@ public class ZwierzeController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Add([FromBody] Zwierze zwierze)
+    public IActionResult DodajZwierze([FromBody] Zwierze zwierze)
     {
         zwierze.Id = BazaDanych.Zwierzeta.Count + 1;
         BazaDanych.Zwierzeta.Add(zwierze);
@@ -33,7 +33,7 @@ public class ZwierzeController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] Zwierze updated)
+    public IActionResult ZaktualizujZwierze(int id, [FromBody] Zwierze updated)
     {
         var zwierze = BazaDanych.Zwierzeta.FirstOrDefault(a => a.Id == id);
         if (zwierze == null) return NotFound();
@@ -47,7 +47,7 @@ public class ZwierzeController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public IActionResult UsunZwierze(int id)
     {
         var zwierze = BazaDanych.Zwierzeta.FirstOrDefault(a => a.Id == id);
         if (zwierze == null) return NotFound();
@@ -57,7 +57,7 @@ public class ZwierzeController : ControllerBase
     }
 
     [HttpGet("{id}/wizyty")]
-    public IActionResult GetVisits(int id)
+    public IActionResult GetWizyty(int id)
     {
         var wizyty = BazaDanych.Wizyty.Where(v => v.ZwierzeId == id).ToList();
         return Ok(wizyty);
