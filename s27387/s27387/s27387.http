@@ -1,0 +1,6 @@
+@s27387_HostAddress = http://localhost:5208
+
+GET {{s27387_HostAddress}}/zwierze/
+Accept: application/json
+
+###
