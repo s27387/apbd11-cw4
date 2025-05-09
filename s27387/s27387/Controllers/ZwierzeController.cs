@@ -29,7 +29,7 @@ public class ZwierzeController : ControllerBase
     {
         zwierze.Id = BazaDanych.Zwierzeta.Count + 1;
         BazaDanych.Zwierzeta.Add(zwierze);
-        return CreatedAtAction(nameof(GetById), new { id = zwierze.Id }, zwierze);
+        return Ok(BazaDanych.Zwierzeta.FirstOrDefault(a => a.Id == zwierze.Id));
     }
 
     [HttpPut("{id}")]
@@ -38,17 +38,10 @@ public class ZwierzeController : ControllerBase
         var zwierze = BazaDanych.Zwierzeta.FirstOrDefault(a => a.Id == id);
         if (zwierze == null) return NotFound();
 
-        if (updated.Imie != null)
-            zwierze.Imie = updated.Imie;
-
-        if (updated.Kategoria != null)
-            zwierze.Kategoria = updated.Kategoria;
-
-        if (updated.Masa != null)
-            zwierze.Masa = updated.Masa;
-
-        if (updated.KolorSiersci != null)
-            zwierze.KolorSiersci = updated.KolorSiersci;
+        zwierze.Imie = updated.Imie;
+        zwierze.Kategoria = updated.Kategoria;
+        zwierze.Masa = updated.Masa;
+        zwierze.KolorSiersci = updated.KolorSiersci;
 
         return NoContent();
     }
